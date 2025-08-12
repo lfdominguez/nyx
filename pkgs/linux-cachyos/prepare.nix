@@ -54,6 +54,7 @@ let
 
   patches = [
     "${patches-src}/${majorMinor}/all/0001-cachyos-base-all.patch"
+    ./patches/march-patch.patchs
   ]
   ++ schedPatches
   ++ lib.optional (
@@ -146,7 +147,12 @@ let
         "--set-val X86_64_VERSION ${v}"
       ]
     else
-      throw "Unsuppoted cachyos mArch";
+      [
+        "-d GENERIC_CPU"
+        "-d MZEN4"
+        "-d X86_NATIVE_CPU"
+        "--set-val NYX_CUSTOM_CPU ${cachyConfig.mArch}"
+      ];
 
   # _cpusched, defaults to "cachyos"
   cpuSchedConfig =
