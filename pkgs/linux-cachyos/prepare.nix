@@ -53,8 +53,8 @@ let
       throw "Unsupported cachyos _cpu_sched=${toString cachyConfig.cpuSched}";
 
   patches = [
-    "${patches-src}/${majorMinor}/all/0001-cachyos-base-all.patch"
     ./patches/march-patch.patch
+    "${patches-src}/${majorMinor}/all/0001-cachyos-base-all.patch"
   ]
   ++ schedPatches
   ++ lib.optional (
