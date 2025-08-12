@@ -1,11 +1,11 @@
 diff --git a/arch/x86/Kconfig.cpu b/arch/x86/Kconfig.cpu
+index f928cf6e3..16d587841 100644
 --- a/arch/x86/Kconfig.cpu
 +++ b/arch/x86/Kconfig.cpu
-@@ -281,6 +281,17 @@ config X86_GENERIC
+@@ -281,6 +281,14 @@ config X86_GENERIC
           This is really intended for distributors who need more
           generic optimizations.
 
-+
 +config NYX_CUSTOM_CPU
 +    bool "Custom CPU support in Nyx build"
 +    depends on (CC_IS_GCC && GCC_VERSION >= 130000) || (CC_IS_CLANG && CLANG_VERSION >= 160000)
@@ -18,14 +18,13 @@ diff --git a/arch/x86/Kconfig.cpu b/arch/x86/Kconfig.cpu
  # Define implied options from the CPU selection here
  config X86_INTERNODE_CACHE_SHIFT
 diff --git a/arch/x86/Makefile b/arch/x86/Makefile
+index 1913d3429..429c0404c 100644
 --- a/arch/x86/Makefile
 +++ b/arch/x86/Makefile
-@@ -181,6 +181,13 @@ else
+@@ -181,6 +181,11 @@ else
          KBUILD_RUSTFLAGS += -Ctarget-cpu=x86-64 -Ztune-cpu=generic
  endif
 
-+# Set NYX_CUSTOM_CPU to override the default CPU
-+# on multiple march options the last one wins
 +ifdef NYX_CUSTOM_CPU
 +       KBUILD_CFLAGS += -march=$(NYX_CUSTOM_CPU)
 +       KBUILD_RUSTFLAGS += -Ctarget-cpu=$(NYX_CUSTOM_CPU)
