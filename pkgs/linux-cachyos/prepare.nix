@@ -54,7 +54,7 @@ let
 
   patches = [
     "${patches-src}/${majorMinor}/all/0001-cachyos-base-all.patch"
-    ./patches/march-patch.patchs
+    ./patches/march-patch.patch
   ]
   ++ schedPatches
   ++ lib.optional (
